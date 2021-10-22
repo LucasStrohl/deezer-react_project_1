@@ -8,7 +8,6 @@ import Footer from '../../shared/footer'
 const Routes = () => {
   return (
     <Routeur>
-      <Header />
       <Switch>
         <Route exact path='/'>
           <Home></Home>
@@ -17,7 +16,7 @@ const Routes = () => {
           <Playlists></Playlists>
         </Route>
       </Switch>
-      <Footer />
+      <Header />
     </Routeur>
   )
 }

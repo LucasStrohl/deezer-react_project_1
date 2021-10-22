@@ -14,4 +14,8 @@ const Foot = styled.div`
   bottom: 0;
 `
 
+const CopiWrite = styled.div`
+  font-size: 10px;
+`
+
 export default Footer
