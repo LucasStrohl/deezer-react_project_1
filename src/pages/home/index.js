@@ -1,19 +1,14 @@
-import React from 'react';
+import React from 'react'
 
 const Home = () => {
-
-  const oauthAppleMusic = () => {
-
-    
-
-  }
+  const oauthDeezer = () => {}
 
   return (
     <div>
       <h1>Home page</h1>
-      <button onClick={() => oauthAppleMusic()}>Se connecter à Apple Music</button>
+      <button onClick={() => oauthDeezer()}>Se connecter à Deezer</button>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
