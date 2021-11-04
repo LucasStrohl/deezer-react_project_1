@@ -36,11 +36,11 @@ const CallBackDeezer = () => {
             localStorage.setItem('tokenDeezer', token)
             history.push('/playlists')
           } else {
-            history.push('/')
+            <p>response: {response}</p>
           }
         })
-        .catch(() => {
-          history.push('/')
+        .catch(error => {
+          <p>error: {error}</p>
         })
     }
   }, [])
