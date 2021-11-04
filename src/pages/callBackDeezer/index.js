@@ -1,69 +1,51 @@
-import { useEffect, useState } from "react";
-import { useParams, useLocation } from 'react-router-dom'
-import { useHistory } from 'react-router-dom';
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 
 const CallBackDeezer = () => {
-
-  const [token, setToken] = useState('')
+  const app_id = process.env.REACT_APP_DEEZER_APP_ID
+  const secret = process.env.REACT_APP_DEEZER_APP_SECRET
 
   const history = useHistory()
   const query = new URLSearchParams(useLocation().search)
+
   const code = query.get('code')
-  const error = query.get('error')
 
   useEffect(() => {
-
-    if(code){
-
+    if (code) {
       axios({
-
         method: 'GET',
-        url: 'https://cors-anywhere.herokuapp.com/https://connect.deezer.com/oauth/access_token.php',
+        url: 'https://connect.deezer.com/oauth/access_token.php',
         params: {
-          app_id: '434862',
-          secret: 'ec9f71bc9aac843681df83fe2989a8e7',
+          app_id: app_id,
+          secret: secret,
           code: code
         }
-
-      }).then(response => {
-
-        const res= response.request.response
-        const posTokenFirst = res.indexOf('=')
-        const posTokenLast = res.lastIndexOf('&')
-        const token = res.substr(posTokenFirst+1, posTokenLast - posTokenFirst-1)
-        console.log("🚀 ~ file: index.js ~ line 37 ~ useEffect ~ token", token)
-
-        if (token !== null){
-
-          localStorage.setItem('tokenDeezer', token)
-
-          history.push('/playlists')
-
-        }else{
-
-          // history.push('/')
-
-        }
-
-      }).catch(error => {
-
-        // history.push('/')
-
       })
+        .then(response => {
+          const res = response.request.response
+          const posTokenFirst = res.indexOf('=')
+          const posTokenLast = res.lastIndexOf('&')
+          const token = res.substr(
+            posTokenFirst + 1,
+            posTokenLast - posTokenFirst - 1
+          )
 
+          if (token !== null) {
+            localStorage.setItem('tokenDeezer', token)
+            history.push('/playlists')
+          } else {
+            history.push('/')
+          }
+        })
+        .catch(() => {
+          history.push('/')
+        })
     }
-
   }, [])
 
-  return (
-    <div>
-
-      <p>{code}</p>
-      <p>{token}</p>
-      
-    </div>
-  );
-};
+  return <div></div>
+}
 
 export default CallBackDeezer

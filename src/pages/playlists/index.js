@@ -1,58 +1,87 @@
-import React from 'react'
-import { useHistory } from 'react-router-dom'
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react'
 import axios from 'axios'
+import BoxPlaylist from '../../component/boxPlaylist'
+import Loader from 'react-loader-spinner'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import Retry from '../../component/retry'
 
 const Playlists = () => {
-
-  const history = useHistory()
-  
   const [playlists, setPlaylists] = useState([])
-
+  const [index, setIndex] = useState(0)
+  const [hasMoreData, setHasMoreData] = useState(true)
+  const [error, setError] = useState(false)
+  const limit = 8
   const token = localStorage.getItem('tokenDeezer')
-  console.log("🚀 ~ file: index.js ~ line 11 ~ Playlists ~ token", token)
 
   useEffect(() => {
-
-    if (token !== null){
-
+    if (token !== null) {
       axios({
-        
         method: 'GET',
-        url: 'https://cors-anywhere.herokuapp.com/https://api.deezer.com/user/me/playlists',
+        url: 'https://api.deezer.com/user/me/playlists',
         params: {
-          access_token: token
+          access_token: token,
+          index: index,
+          limit: limit
         }
-
-      }).then(response => {
-        console.log("🚀 ~ file: index.js ~ line 23 ~ useEffect ~ response", response)
-        setPlaylists(response.data.data)
-
-      }).catch(error => {
-        
       })
-
+        .then(response => {
+          if (response.data.data.length === 0) {
+            setHasMoreData(false)
+          }
+          if (index === 0) {
+            setPlaylists(response.data.data)
+          } else {
+            setPlaylists([...playlists, ...response.data.data])
+          }
+        })
+        .catch(() => {
+          setError(true)
+        })
     }
+  }, [index])
 
-  }, [])
+  const Next = () => {
+    setIndex(index + limit)
+  }
 
   return (
     <div>
-      <h1>Your Playlists</h1>
+      <h1>Vos playlists</h1>
 
-      {
-        playlists.map((playlist) => {
-
-          return (
-
-            <p onClick={() => history.push(`/playlist/${playlist.id}`)}>{playlist.title}</p>
-
+      <InfiniteScroll
+        dataLength={playlists.length}
+        next={Next}
+        hasMore={hasMoreData}
+        //Le ternair permet de ne pas afficher le loader s'il n'y a pas de connexion
+        loader={
+          error ? (
+            ''
+          ) : (
+            <Loader
+              type='TailSpin'
+              color='#ffffff'
+              height={50}
+              width={50}
+            ></Loader>
           )
-
-        })
-
-      }
-
+        }
+        endMessage=''
+        refreshFunction={() => setIndex(0)}
+        pullDownToRefresh
+        pullDownToRefreshThreshold={50}
+        pullDownToRefreshContent={
+          <h3 style={{ textAlign: 'center' }}>&#8595; Pull down to refresh</h3>
+        }
+        releaseToRefreshContent={
+          <h3 style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>
+        }
+      >
+        {playlists.map(playlist => {
+          return <BoxPlaylist playlistItem={playlist}></BoxPlaylist>
+        })}
+      </InfiniteScroll>
+      {/* Affichage d'un message d'erreur lors de la perte de connexion */}
+      {error ? <Retry></Retry> : ''}
     </div>
   )
 }
