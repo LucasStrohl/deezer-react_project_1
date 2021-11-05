@@ -17,6 +17,12 @@ const CallBackDeezer = () => {
       axios({
         method: 'GET',
         url: 'https://connect.deezer.com/oauth/access_token.php',
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Origin': 'http://localhost:3000',
+          'Access-Control-Allow-Credentials': 'true',
+          'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
+        },
         params: {
           app_id: app_id,
           secret: secret,
