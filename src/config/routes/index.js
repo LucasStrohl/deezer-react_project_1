@@ -15,6 +15,7 @@ import { DarkTheme } from '../theme'
 import styled from 'styled-components'
 import Profil from '../../pages/profil'
 import Footer from '../../shared/footer'
+import PropTypes from 'prop-types'
 
 const Routes = () => {
   return (
@@ -51,6 +52,9 @@ const Container = styled.div`
 `
 
 const PrivateRoute = ({ children, ...rest }) => {
+  PrivateRoute.propTypes = {
+    children: PropTypes.object
+  }
   const token = localStorage.getItem('tokenDeezer')
   return (
     <Route
@@ -64,6 +68,10 @@ const PrivateRoute = ({ children, ...rest }) => {
       }
     />
   )
+}
+
+Routes.propTypes = {
+  children: PropTypes.object
 }
 
 export default Routes

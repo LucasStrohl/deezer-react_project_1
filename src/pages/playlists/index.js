@@ -77,7 +77,11 @@ const Playlists = () => {
         }
       >
         {playlists.map(playlist => {
-          return <BoxPlaylist playlistItem={playlist}></BoxPlaylist>
+          return (
+            <div key={playlist.id}>
+              <BoxPlaylist playlistItem={playlist}></BoxPlaylist>
+            </div>
+          )
         })}
       </InfiniteScroll>
       {/* Affichage d'un message d'erreur lors de la perte de connexion */}

@@ -26,12 +26,10 @@ const Profil = () => {
       }
     })
       .then(response => {
-        console.log("🚀 ~ file: index.js ~ line 29 ~ useEffect ~ response", response)
         setUser(response.data)
         setIsChargedUser(true)
       })
-      .catch(error => {
-        console.log("🚀 ~ file: index.js ~ line 34 ~ useEffect ~ error", error)
+      .catch(() => {
         setErrorUser(true)
       })
   }, [])
@@ -46,12 +44,10 @@ const Profil = () => {
         }
       })
         .then(response => {
-          console.log("🚀 ~ file: index.js ~ line 49 ~ useEffect ~ response", response)
           setFlow(response.data.data)
           setIsChargedFlow(true)
         })
-        .catch(error => {
-          console.log("🚀 ~ file: index.js ~ line 54 ~ useEffect ~ error", error)
+        .catch(() => {
           setErrorFlow(true)
         })
     }
@@ -69,7 +65,11 @@ const Profil = () => {
       {isChargedUser ? <Profile user={user}></Profile> : ''}
       {isChargedFlow ? <FlowTitle>Votre top 10 du flow</FlowTitle> : ''}
       {flow.map(tracklist => {
-        return <BoxFlow track={tracklist}></BoxFlow>
+        return (
+          <div key={tracklist.id}>
+            <BoxFlow track={tracklist}></BoxFlow>
+          </div>
+        )
       })}
       {errorUser || errorFlow ? <Retry page='profil'></Retry> : ''}
       {loader ? (

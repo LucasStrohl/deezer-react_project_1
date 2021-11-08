@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 const BoxFlow = props => {
   return (
@@ -10,6 +11,10 @@ const BoxFlow = props => {
       </Playlists>
     </BoxTheme>
   )
+}
+
+BoxFlow.propTypes = {
+  track: PropTypes.object
 }
 
 const BoxTheme = styled.div`

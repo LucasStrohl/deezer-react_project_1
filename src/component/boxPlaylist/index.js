@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 const BoxPlaylist = props => {
   const history = useHistory()
@@ -15,6 +16,10 @@ const BoxPlaylist = props => {
       </Playlists>
     </BoxTheme>
   )
+}
+
+BoxPlaylist.propTypes = {
+  playlistItem: PropTypes.object.isRequired
 }
 
 const BoxTheme = styled.div`
