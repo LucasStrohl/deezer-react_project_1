@@ -6,6 +6,7 @@ const Home = () => {
   const [isConnected, setIsConnected] = useState(false)
   const app_id = process.env.REACT_APP_DEEZER_APP_ID
   const redirect_uri = process.env.REACT_APP_REDIRECT_URI
+  const redirect_uri_localhost = process.env.REACT_APP_REDIRECT_URI_LOCALHOST
   const perms = process.env.REACT_APP_PERMS
 
   useEffect(() => {
