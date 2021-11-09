@@ -26,11 +26,14 @@ const Profil = () => {
       }
     })
       .then(response => {
+      console.log("🚀 ~ file: index.js ~ line 29 ~ useEffect ~ response", response)
         setUser(response.data)
         setIsChargedUser(true)
+        console.log("charged profile")
       })
       .catch(() => {
         setErrorUser(true)
+        console.log("error profile")
       })
   }, [])
 
@@ -46,8 +49,10 @@ const Profil = () => {
         .then(response => {
           setFlow(response.data.data)
           setIsChargedFlow(true)
+          console.log("charged flow")
         })
         .catch(() => {
+          console.log("error flow")
           setErrorFlow(true)
         })
     }
