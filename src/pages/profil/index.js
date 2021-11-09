@@ -26,14 +26,19 @@ const Profil = () => {
       }
     })
       .then(response => {
-      console.log("🚀 ~ file: index.js ~ line 29 ~ useEffect ~ response", response)
-        setUser(response.data)
-        setIsChargedUser(true)
-        console.log("charged profile")
+        console.log('response')
+        if (response.data.error !== undefined) {
+          setErrorUser(true)
+          console.log('error profile')
+        } else {
+          setUser(response.data)
+          setIsChargedUser(true)
+          console.log('charged profile')
+        }
       })
       .catch(() => {
         setErrorUser(true)
-        console.log("error profile")
+        console.log('error profile')
       })
   }, [])
 
@@ -49,10 +54,10 @@ const Profil = () => {
         .then(response => {
           setFlow(response.data.data)
           setIsChargedFlow(true)
-          console.log("charged flow")
+          console.log('charged flow')
         })
         .catch(() => {
-          console.log("error flow")
+          console.log('error flow')
           setErrorFlow(true)
         })
     }
@@ -65,7 +70,7 @@ const Profil = () => {
   }, [errorUser, isChargedUser, errorFlow, isChargedFlow])
 
   return (
-    <div>
+    <Container>
       <h1>Profil</h1>
       {isChargedUser ? <Profile user={user}></Profile> : ''}
       {isChargedFlow ? <FlowTitle>Votre top 10 du flow</FlowTitle> : ''}
@@ -82,9 +87,15 @@ const Profil = () => {
       ) : (
         ''
       )}
-    </div>
+    </Container>
   )
 }
+
+const Container = styled.div`
+  display: flex;
+  box-sizing: content-box;
+  flex-direction: column;
+`
 
 const FlowTitle = styled.h3`
   display: flex;

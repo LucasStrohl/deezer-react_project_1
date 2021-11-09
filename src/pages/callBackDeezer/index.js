@@ -36,7 +36,7 @@ const CallBackDeezer = () => {
             localStorage.setItem('tokenDeezer', token)
             history.push('/playlists')
           } else {
-            <p>response: {response}</p>
+            ;<p>response: {response}</p>
           }
         })
         .catch(error => {

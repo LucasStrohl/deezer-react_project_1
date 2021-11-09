@@ -22,15 +22,18 @@ Profile.propTypes = {
 
 const HeaderProfil = styled.div`
   display: flex;
+  box-sizing: content-box;
   flex-direction: row;
   width: 100%;
-  gap: 30px 40px;
-  margin-bottom: 50px;
+  gap: 10px;
+  margin-bottom: 30px;
+  justify-content: space-around;
 `
 
 const Informations = styled.div`
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
 `
 
 const ImgProfil = styled.img`
