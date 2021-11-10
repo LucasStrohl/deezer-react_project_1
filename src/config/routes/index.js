@@ -9,9 +9,7 @@ import Home from '../../pages/home'
 import Playlist from '../../pages/playlist'
 import Playlists from '../../pages/playlists'
 import CallBackDeezer from '../../pages/callBackDeezer'
-import GlobalStyle from '../globalStyle'
-import { ThemeProvider } from 'styled-components'
-import { DarkTheme } from '../theme'
+import { DarkTheme, LightTheme } from '../theme'
 import styled from 'styled-components'
 import Profil from '../../pages/profil'
 import Footer from '../../shared/footer'
@@ -19,8 +17,6 @@ import PropTypes from 'prop-types'
 
 const Routes = () => {
   return (
-    <ThemeProvider theme={DarkTheme}>
-      <GlobalStyle />
       <Container>
         <Routeur>
           <Switch>
@@ -43,7 +39,6 @@ const Routes = () => {
           <Footer />
         </Routeur>
       </Container>
-    </ThemeProvider>
   )
 }
 
