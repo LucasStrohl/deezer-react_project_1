@@ -21,4 +21,4 @@
     - l'e-mail de l'utilisateur
     - le top 10 du flow (playlist générée par Deezer) de l'utilisateur
   - Mise en place d'un light thème et d'un dark thème avec Redux persistant
-  
+  - Mise en ligne de la PWA
